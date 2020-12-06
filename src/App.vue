@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
 
@@ -8,42 +7,28 @@
     </header>
 
     <!-- books list -->
-    <ul>
-      <li
-        :key = "index"
-        v-for="(book, index) in books">
-          {{ book.title }}, {{ book.price }}$
-          <button @click="removeBook(index)">Remove</button>
-      </li>
-    </ul>
+    <books-list
+      @remove="removeBook"
+      :books="books" />
 
     <!-- no books message -->
     <p v-show="!books.length">No books...</p>
 
-    <div>
-      <p v-if="!books.length">Go get some books!</p>
-      <p v-else-if="books.length === 1">One single book!</p>
-      <p v-else-if="books.length < 6">Not too many of them…</p>
-      <p v-else>{{ books.length }} books</p>
-    </div>
+    <books-length-msg
+      :books="books" />
 
     <!-- add book form -->
-    <form @submit.prevent="handleSubmit">
-      <label>
-        Title:
-        <input v-model="form.title" type="text" name="title">
-      </label>
-      <label>
-        price:
-        <input v-model="form.price" type="number" name="price">
-      </label>
-      <button>Add book</button>
-    </form>
+    <book-form
+      @add="addBook" />
 
   </div>
 </template>
 
 <script>
+import BooksList from './components/BooksList.vue'
+import BooksLengthMsg from './components/BooksLengthMsg.vue'
+import BookForm from './components/BookForm.vue'
+
 export default {
   name: 'App',
   data: () => ({
@@ -56,22 +41,21 @@ export default {
         title: 'Of Mice and Men',
         price: 18
       }
-    ],
-    form: {
-      title: '',
-      price: 0
-    }
+    ]
   }),
   methods: {
     removeBook (index) {
       this.books.splice(index, 1)
     },
 
-    handleSubmit () {
-      this.books.push({ ...this.form })
-      this.form.title = ''
-      this.form.price = 0
+    addBook (book) {
+      this.books.push({ ...book })
     }
+  },
+  components: {
+    BooksList,
+    BooksLengthMsg,
+    BookForm
   }
 }
 </script>
