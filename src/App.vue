@@ -21,6 +21,9 @@
     <book-form
       @add="addBook" />
 
+    <books-summary
+      :books="books" />
+
   </div>
 </template>
 
@@ -28,6 +31,7 @@
 import BooksList from './components/BooksList.vue'
 import BooksLengthMsg from './components/BooksLengthMsg.vue'
 import BookForm from './components/BookForm.vue'
+import BooksSummary from './components/BooksSummary.vue'
 
 export default {
   name: 'App',
@@ -55,7 +59,8 @@ export default {
   components: {
     BooksList,
     BooksLengthMsg,
-    BookForm
+    BookForm,
+    BooksSummary
   }
 }
 </script>

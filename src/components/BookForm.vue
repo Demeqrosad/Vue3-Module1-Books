@@ -23,7 +23,10 @@ export default {
   }),
   methods: {
     handleSubmit () {
-      this.$emit('add', this.form)
+      const formPayload = {}
+      formPayload.title = this.form.title
+      formPayload.price = parseInt(this.form.price, 10)
+      this.$emit('add', formPayload)
       this.form.title = ''
       this.form.price = 0
     }
